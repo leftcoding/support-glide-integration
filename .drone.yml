@@ -55,7 +55,7 @@ steps:
       from_secret: DINGTALK_URL
     debug: true
     content_type: application/json
-    template: |
+    template: 
       {
         "msgtype": "actionCard",
         "actionCard": {
