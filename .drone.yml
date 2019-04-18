@@ -70,6 +70,8 @@ steps:
         }
       }
   when:
+    branch:
+    - master
     event:
     - pull_request
     status:
