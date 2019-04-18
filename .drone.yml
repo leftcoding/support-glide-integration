@@ -44,9 +44,6 @@ steps:
   commands:
   - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
 
-depends_on:
-- default
-
 - name: notify
   image: plugins/webhook
   settings:
@@ -74,6 +71,9 @@ depends_on:
     status:
     - success
     - failure
+
+depends_on:
+- default
 
 volumes:
 - name: gradle
