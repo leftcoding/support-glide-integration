@@ -2,37 +2,37 @@
 # 默认流程
 kind: pipeline
 name: default
-#steps:
-#- name: test
-#  image: runmymind/docker-android-sdk
-#  volumes:
-#  - name: gradle
-#    path: /root/.gradle
-#  commands:
-#  - ./gradlew :app:clean
-#  - ./gradlew :support_network_glide_integration:clean
-#
-#- name: check
-#  image: runmymind/docker-android-sdk
-#  volumes:
-#  - name: gradle
-#    path: /root/.gradle
-#  commands:
-#  - ./gradlew clean check
-#
-#- name: build
-#  image: runmymind/docker-android-sdk
-#  volumes:
-#  - name: gradle
-#    path: /root/.gradle
-#  commands:
-#  - ./gradlew :app:clean :app:build
-#
-#volumes:
-#- name: gradle
-#  host:
-#    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
-##  temp: {}
+steps:
+- name: test
+  image: runmymind/docker-android-sdk
+  volumes:
+  - name: gradle
+    path: /root/.gradle
+  commands:
+  - ./gradlew :app:clean
+  - ./gradlew :support_network_glide_integration:clean
+
+- name: check
+  image: runmymind/docker-android-sdk
+  volumes:
+  - name: gradle
+    path: /root/.gradle
+  commands:
+  - ./gradlew clean check
+
+- name: build
+  image: runmymind/docker-android-sdk
+  volumes:
+  - name: gradle
+    path: /root/.gradle
+  commands:
+  - ./gradlew :app:clean :app:build
+
+volumes:
+- name: gradle
+  host:
+    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
+#  temp: {}
 
 ---
 # 发布到私有 maven，测试
@@ -46,7 +46,7 @@ steps:
 #    path: /root/.gradle
 #  commands:
 #  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
-  
+
 
 - name: notify
   image: plugins/webhook
