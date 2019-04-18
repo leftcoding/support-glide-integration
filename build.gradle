@@ -1,0 +1,72 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+ext {
+    REMOTE_USERNAME = 'admin'
+    REMOTE_PASSWORD = 'admin123'
+
+    REMOTE_RELEASES_REPO_URL = 'http://nexus.xrjcloud.com/nexus/content/repositories/releases/'
+    REMOTE_SNAPSHOTS_REPO_URL = 'http://nexus.xrjcloud.com/nexus/content/repositories/snapshots/'
+
+    MAVEN_GROUP_ID = 'com.xrjiot.xms'
+
+    MAVEN_VERSION_CODE = 2005
+//    MAVEN_VERSION_NAME = '2.0.0'
+    MAVEN_VERSION_NAME = '2.0.5-SNAPSHOT'
+
+    MAVEN_MODULE_SUPPORT_PREFIX = 'support'
+    MAVEN_MODULE_SUPPORT_PREFIX_REPLACE = 'android'
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+
+        maven {
+            url REMOTE_RELEASES_REPO_URL
+            credentials {
+                username REMOTE_USERNAME
+                password REMOTE_PASSWORD
+            }
+        }
+
+        maven {
+            url REMOTE_SNAPSHOTS_REPO_URL
+            credentials {
+                username REMOTE_USERNAME
+                password REMOTE_PASSWORD
+            }
+        }
+    }
+}
+
+subprojects {
+    ext {
+        androidCompileSdkVersion = 28
+
+        androidMinSdkVersion = 21
+        androidTargetSdkVersion = 28
+
+        glideVersion = '4.0.0'
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
