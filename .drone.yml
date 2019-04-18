@@ -60,7 +60,7 @@ steps:
         "msgtype": "actionCard",
         "actionCard": {
           "title": "Drone Notification",
-          "text":"4444",
+          "text": "4444",
           "singleTitle": "View Build Result",
           "singleURL": "https://www.dingtalk.com/"
         }
