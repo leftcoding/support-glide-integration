@@ -1,0 +1,82 @@
+---
+# 默认流程
+kind: pipeline
+name: default
+steps:
+- name: test
+  image: runmymind/docker-android-sdk
+  volumes:
+  - name: gradle
+    path: /root/.gradle
+  commands:
+  - ./gradlew :app:clean
+
+- name: check
+  image: runmymind/docker-android-sdk
+  volumes:
+  - name: gradle
+    path: /root/.gradle
+  commands:
+  - ./gradlew clean check
+
+- name: build
+  image: runmymind/docker-android-sdk
+  volumes:
+  - name: gradle
+    path: /root/.gradle
+  commands:
+  - ./gradlew :app:clean :app:build
+
+volumes:
+- name: gradle
+  host:
+    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
+#  temp: {}
+
+---
+# 发布到私有 maven
+kind: pipeline
+name: maven
+steps:
+- name: pub-maven
+  image: runmymind/docker-android-sdk
+  #  volumes:
+  commands:
+  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
+
+depends_on:
+- default
+
+- name: notify
+  image: plugins/webhook
+  settings:
+    urls:
+      from_secret: DINGTALK_WEBHOOK_URLS
+    debug: true
+    content_type: application/json
+    template: |
+      {
+        "msgtype": "actionCard",
+        "actionCard": {
+          "title": "Drone Notification",
+          {{#success build.status}}
+          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **15260127782**\n- Status: **Successfully**",
+          {{else}}
+          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **15260127782**\n- Status: **Failure**",
+          {{/success}}
+          "singleTitle": "View Build Result",
+          "singleURL": "${DRONE_BUILD_LINK}"
+        }
+      }
+  when:
+    event:
+    - pull_request
+    status:
+    - success
+    - failure
+
+volumes:
+- name: gradle
+  host:
+    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
+#  temp: {}
