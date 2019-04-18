@@ -76,8 +76,8 @@ steps:
     - success
     - failure
 
-#depends_on:
-#- default
+depends_on:
+- default
 
 volumes:
 - name: gradle
