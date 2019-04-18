@@ -53,7 +53,8 @@ steps:
   image: plugins/webhook
   settings:
     urls:
-      from_secret: DINGTALK_URL
+    #      from_secret: DINGTALK_URL
+    - https://oapi.dingtalk.com/robot/send?access_token=8458c9f499ef109e2ddfcd0e0fea4d9aa0f773e538ad98514bdaf68e06f124f9
     debug: true
     content_type: application/json
     template: |
@@ -73,9 +74,9 @@ steps:
   when:
     branch:
     - master
-#    event:
-#    - push
-#    - pull_request
+    #    event:
+    #    - push
+    #    - pull_request
     status:
     - success
     - failure
