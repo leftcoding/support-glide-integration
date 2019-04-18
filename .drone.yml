@@ -55,14 +55,18 @@ steps:
       from_secret: DINGTALK_URL
     debug: true
     content_type: application/json
-    template: 
+    template: |
       {
         "msgtype": "actionCard",
         "actionCard": {
           "title": "Drone Notification",
-          "text": "4444",
+          {{#success build.status}}
+          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **${DRONE_COMMIT_AUTHOR}**\n- Status: **Successfully**",
+          {{else}}
+          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **${DRONE_COMMIT_AUTHOR}**\n- Status: **Failure**",
+          {{/success}}
           "singleTitle": "View Build Result",
-          "singleURL": "https://www.dingtalk.com/"
+          "singleURL": "${DRONE_BUILD_LINK}"
         }
       }
   when:
