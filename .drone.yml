@@ -35,49 +35,48 @@ volumes:
 #  temp: {}
 
 ---
-## 发布到私有 maven，测试
-#kind: pipeline
-#name: maven
-#steps:
-#- name: pub-maven
-#  image: runmymind/docker-android-sdk
-#  #  volumes:
-#  commands:
-#  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
-#
-#depends_on:
-#- default
-#
-#- name: notify
-#  image: plugins/webhook
-#  settings:
-#    urls:
-#      from_secret: DINGTALK_WEBHOOK_URLS
-#    debug: true
-#    content_type: application/json
-#    template: |
-#      {
-#        "msgtype": "actionCard",
-#        "actionCard": {
-#          "title": "Drone Notification",
-#          {{#success build.status}}
-#          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **15260127782**\n- Status: **Successfully**",
-#          {{else}}
-#          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **15260127782**\n- Status: **Failure**",
-#          {{/success}}
-#          "singleTitle": "View Build Result",
-#          "singleURL": "${DRONE_BUILD_LINK}"
-#        }
-#      }
-#  when:
-#    event:
-#    - pull_request
-#    status:
-#    - success
-#    - failure
-#
-#volumes:
-#- name: gradle
-#  host:
-#    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
-##  temp: {}
+# 发布到私有 maven，测试
+kind: pipeline
+name: maven
+steps:
+- name: pub-maven
+  image: runmymind/docker-android-sdk
+  commands:
+  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
+
+depends_on:
+- default
+
+- name: notify
+  image: plugins/webhook
+  settings:
+    urls:
+      from_secret: https://oapi.dingtalk.com/robot/send?access_token=8458c9f499ef109e2ddfcd0e0fea4d9aa0f773e538ad98514bdaf68e06f124f9
+    debug: true
+    content_type: application/json
+    template: |
+      {
+        "msgtype": "actionCard",
+        "actionCard": {
+          "title": "Drone Notification",
+          {{#success build.status}}
+          "text": "Repo PullRequest Event\n- Repo: **322222**\n- Commit: **[{{build.message}}](33333333)**\n- Pusher: **15260127782**\n- Status: **Successfully**",
+          {{else}}
+          "text": "Repo PullRequest Event\n- Repo: **322222**\n- Commit: **[{{build.message}}](44444444)**\n- Pusher: **15260127782**\n- Status: **Failure**",
+          {{/success}}
+          "singleTitle": "View Build Result",
+          "singleURL": "https://www.dingtalk.com/"
+        }
+      }
+  when:
+    event:
+    - pull_request
+    status:
+    - success
+    - failure
+
+volumes:
+- name: gradle
+  host:
+    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
+#  temp: {}
