@@ -70,16 +70,14 @@ steps:
         }
       }
   when:
-    branch:
-    - dev
     event:
     - push
     status:
     - success
     - failure
 
-depends_on:
-- default
+#depends_on:
+#- default
 
 volumes:
 - name: gradle
