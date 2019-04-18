@@ -34,7 +34,7 @@ volumes:
 #  temp: {}
 
 ---
-# 发布到私有 maven
+# 发布到私有 maven，测试
 kind: pipeline
 name: maven
 steps:
