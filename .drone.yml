@@ -69,7 +69,7 @@ steps:
       }
   when:
     event:
-    - push
+    - pull_request
     status:
     - success
     - failure
