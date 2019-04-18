@@ -74,8 +74,8 @@ steps:
   when:
     branch:
     - master
-    event:
-    - push
+#    event:
+#    - push
 #    - pull_request
     status:
     - success
