@@ -12,21 +12,21 @@ steps:
   - ./gradlew :app:clean
   - ./gradlew :support_network_glide_integration:clean
 
-- name: check
-  image: runmymind/docker-android-sdk
-  volumes:
-  - name: gradle
-    path: /root/.gradle
-  commands:
-  - ./gradlew clean check
-
-- name: build
-  image: runmymind/docker-android-sdk
-  volumes:
-  - name: gradle
-    path: /root/.gradle
-  commands:
-  - ./gradlew :app:clean :app:build
+#- name: check
+#  image: runmymind/docker-android-sdk
+#  volumes:
+#  - name: gradle
+#    path: /root/.gradle
+#  commands:
+#  - ./gradlew clean check
+#
+#- name: build
+#  image: runmymind/docker-android-sdk
+#  volumes:
+#  - name: gradle
+#    path: /root/.gradle
+#  commands:
+#  - ./gradlew :app:clean :app:build
 
 volumes:
 - name: gradle
