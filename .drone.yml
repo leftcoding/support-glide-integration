@@ -46,6 +46,7 @@ steps:
 #  commands:
 #  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
 
+
 - name: notify
   image: plugins/webhook
   settings:
@@ -69,8 +70,9 @@ steps:
       }
   when:
     branch:
-    - master
-#    event:
+    - dev
+    event:
+    - push
 #    - pull_request
     status:
     - success
