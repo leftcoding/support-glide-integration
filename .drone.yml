@@ -51,7 +51,7 @@ steps:
   image: plugins/webhook
   settings:
     urls:
-      from_secret: https://oapi.dingtalk.com/robot/send?access_token=8458c9f499ef109e2ddfcd0e0fea4d9aa0f773e538ad98514bdaf68e06f124f9
+      from_secret: DINGTALK_URL
     debug: true
     content_type: application/json
     template: |
