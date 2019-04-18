@@ -1,4 +1,4 @@
----
+#---
 ## 默认流程
 #kind: pipeline
 #name: default
@@ -34,7 +34,7 @@
 #    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
 ##  temp: {}
 
----
+#---
 # 发布到私有 maven，测试
 kind: pipeline
 name: maven
@@ -55,7 +55,7 @@ steps:
       from_secret: DINGTALK_URL
     debug: true
     content_type: application/json
-    template: |
+    template: 
       {
         "msgtype": "actionCard",
         "actionCard": {
