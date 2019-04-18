@@ -68,8 +68,10 @@ steps:
         }
       }
   when:
-    event:
-    - pull_request
+    branch:
+    - master
+#    event:
+#    - pull_request
     status:
     - success
     - failure
