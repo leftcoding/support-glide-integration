@@ -1,7 +1,7 @@
-#---
+---
 # 默认流程
-#kind: pipeline
-#name: default
+kind: pipeline
+name: default
 #steps:
 #- name: test
 #  image: runmymind/docker-android-sdk
@@ -74,8 +74,8 @@ steps:
     - success
     - failure
 
-#depends_on:
-#- default
+depends_on:
+- default
 
 volumes:
 - name: gradle
