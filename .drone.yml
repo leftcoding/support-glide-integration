@@ -12,7 +12,6 @@ steps:
   - ./gradlew :app:clean
   - ./gradlew :support_network_glide_integration:clean
 
-
 #- name: check
 #  image: runmymind/docker-android-sdk
 #  volumes:
