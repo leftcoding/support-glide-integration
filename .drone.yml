@@ -60,9 +60,9 @@ steps:
         "actionCard": {
           "title": "Drone Notification",
           {{#success build.status}}
-          "text": "Repo PullRequest Event\n- Repo: **322222**\n- Commit: **[{{build.message}}](33333333)**\n- Pusher: **15260127782**\n- Status: **Successfully**",
+          "text": "Repo PullRequest Event\n- Repo: **http:www.baidu.com**\n- Commit: **[{{build.message}}](http:www.baidu.com)**\n- Pusher: **15260127782**\n- Status: **Successfully**",
           {{else}}
-          "text": "Repo PullRequest Event\n- Repo: **322222**\n- Commit: **[{{build.message}}](44444444)**\n- Pusher: **15260127782**\n- Status: **Failure**",
+          "text": "Repo PullRequest Event\n- Repo: **http:www.baidu.com**\n- Commit: **[{{build.message}}](http:www.baidu.com)**\n- Pusher: **15260127782**\n- Status: **Failure**",
           {{/success}}
           "singleTitle": "View Build Result",
           "singleURL": "https://www.dingtalk.com/"
