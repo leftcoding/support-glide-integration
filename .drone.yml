@@ -72,9 +72,9 @@ steps:
       }
   when:
     branch:
-    - master
+    - dev
     event:
-    - merge
+    - push
     #    - pull_request
     status:
     - success
