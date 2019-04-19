@@ -74,8 +74,8 @@ steps:
     branch:
     - dev
     event:
-    - push
-    #    - pull_request
+    #    - merge
+    - pull_request
     status:
     - success
     - failure
