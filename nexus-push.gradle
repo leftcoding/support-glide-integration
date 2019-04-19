@@ -34,11 +34,6 @@ uploadArchives {
         }
 
         repositories.mavenDeployer {
-//            repository(url: LOCAL_RELEASES_REPO_URL)
-//            repository(url: LOCAL_SNAPSHOTS_REPO_URL)
-//            repository(url: REMOTE_RELEASES_REPO_URL) {
-//                authentication(userName: REMOTE_USERNAME, password: REMOTE_PASSWORD)
-//            }
             repository(url: getRepositoryUrl()) {
                 authentication(userName: REMOTE_USERNAME, password: REMOTE_PASSWORD)
             }
