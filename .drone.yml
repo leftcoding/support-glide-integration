@@ -72,7 +72,7 @@ steps:
       }
   when:
     branch:
-    - dev
+    - master
     event:
     #    - merge
     - pull_request
