@@ -9,8 +9,8 @@ steps:
   - name: gradle
     path: /root/.gradle
   commands:
-  - ./gradlew :app:clean
-  - ./gradlew :support_network_glide_integration:clean
+  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:testReleaseUnitTest
+
 - name: check
   image: runmymind/docker-android-sdk
   volumes:
@@ -50,7 +50,7 @@ steps:
   image: plugins/webhook
   settings:
     urls:
-      #  http://drone.xrjcloud.com 网页值必须要设置 allow pull requests，不然会报错：You must provide at least one url
+      #  http://drone.xrjcloud.com DINGTALK_URL 值必须要设置 allow pull requests，不然会报错：You must provide at least one url
       from_secret: DINGTALK_URL
     debug: true
     content_type: application/json
@@ -76,6 +76,14 @@ steps:
     status:
     - success
     - failure
+
+trigger:
+  branch:
+  - master
+  event:
+  - pull_request
+  statsu:
+  - success
 
 depends_on:
 - default
