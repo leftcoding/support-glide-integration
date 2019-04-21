@@ -50,6 +50,7 @@ steps:
   image: plugins/webhook
   settings:
     urls:
+      #
       #  http://drone.xrjcloud.com DINGTALK_URL 值必须要设置 allow pull requests，不然会报错：You must provide at least one url
       from_secret: DINGTALK_URL
     debug: true
