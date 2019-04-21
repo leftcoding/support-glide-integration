@@ -33,64 +33,64 @@ volumes:
     path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
 #  temp: {}
 
----
-# 发布到私有 maven
-kind: pipeline
-name: maven
-steps:
-- name: pub-maven
-  image: runmymind/docker-android-sdk
-  volumes:
-  - name: gradle
-    path: /root/.gradle
-  commands:
-  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
-
-- name: notify
-  image: plugins/webhook
-  settings:
-    urls:
-      #
-      #  http://drone.xrjcloud.com DINGTALK_URL 值必须要设置 allow pull requests，不然会报错：You must provide at least one url
-      from_secret: DINGTALK_URL
-    debug: true
-    content_type: application/json
-    template: |
-      {
-        "msgtype": "actionCard",
-        "actionCard": {
-          "title": "Drone Notification",
-          {{#success build.status}}
-          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **${DRONE_COMMIT_AUTHOR}**\n- Status: **Successfully**",
-          {{else}}
-          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **${DRONE_COMMIT_AUTHOR}**\n- Status: **Failure**",
-          {{/success}}
-          "singleTitle": "View Build Result",
-          "singleURL": "${DRONE_BUILD_LINK}"
-        }
-      }
-  when:
-    branch:
-    - master
-    event:
-    - pull_request
-    status:
-    - success
-    - failure
-
-trigger:
-  branch:
-  - master
-  event:
-  - pull_request
-  statsu:
-  - success
-
-depends_on:
-- default
-
-volumes:
-- name: gradle
-  host:
-    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
+#---
+## 发布到私有 maven
+#kind: pipeline
+#name: maven
+#steps:
+#- name: pub-maven
+#  image: runmymind/docker-android-sdk
+#  volumes:
+#  - name: gradle
+#    path: /root/.gradle
+#  commands:
+#  - ./gradlew :support_network_glide_integration:clean :support_network_glide_integration:uploadArchives
+#
+#- name: notify
+#  image: plugins/webhook
+#  settings:
+#    urls:
+#      #
+#      #  http://drone.xrjcloud.com DINGTALK_URL 值必须要设置 allow pull requests，不然会报错：You must provide at least one url
+#      from_secret: DINGTALK_URL
+#    debug: true
+#    content_type: application/json
+#    template: |
+#      {
+#        "msgtype": "actionCard",
+#        "actionCard": {
+#          "title": "Drone Notification",
+#          {{#success build.status}}
+#          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **${DRONE_COMMIT_AUTHOR}**\n- Status: **Successfully**",
+#          {{else}}
+#          "text": "Repo PullRequest Event\n- Repo: **[${DRONE_REPO}](${DRONE_REMOTE_URL})**\n- Commit: **[{{build.message}}](${DRONE_COMMIT_LINK})**\n- Pusher: **${DRONE_COMMIT_AUTHOR}**\n- Status: **Failure**",
+#          {{/success}}
+#          "singleTitle": "View Build Result",
+#          "singleURL": "${DRONE_BUILD_LINK}"
+#        }
+#      }
+#  when:
+#    branch:
+#    - master
+#    event:
+#    - pull_request
+#    status:
+#    - success
+#    - failure
+#
+#trigger:
+#  branch:
+#  - master
+#  event:
+#  - pull_request
+#  statsu:
+#  - success
+#
+#depends_on:
+#- default
+#
+#volumes:
+#- name: gradle
+#  host:
+#    path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
 #  temp: {}
