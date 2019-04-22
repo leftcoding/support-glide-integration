@@ -33,7 +33,6 @@ volumes:
     path: /datum/drone-agent/.gradle # 绝对路径，不能用相对路径
 #  temp: {}
 
-
 #---
 ## 发布到私有 maven
 #kind: pipeline
